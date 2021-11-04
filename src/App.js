@@ -59,16 +59,21 @@ function Address (){
     const [houseTerm, setHouseTerm] = useState(null)
     const [flatTerm, setFlatTerm] = useState(null)
 
+    const [address, setAddress] = useState(null)
 
-  const onClickHandler = () => {
-      setStreetTerm('')
-      setHouseTerm('')
-      setFlatTerm('')
-      dispatch(setHousesAC([]))
-      dispatch(setHousesFlatsAC([]))
-      dispatch(setStreetsAC([]))
+
+
+    const onClickHandler = () => {
+      setAddress([streetTerm.name,houseTerm.name, flatTerm.name])
+
+        setStreetTerm('')
+        setHouseTerm('')
+        setFlatTerm('')
+        dispatch(setHousesAC([]))
+        dispatch(setHousesFlatsAC([]))
+        dispatch(setStreetsAC([]))
+
     }
-
     return (
 
             <Stack direction="row" spacing={2}>
@@ -78,6 +83,7 @@ function Address (){
                 <HousesFlat flatTerm={flatTerm} houseID={houseTerm} setSearchTerm={setFlatTerm}  houseFlat={houseFlat}
                             dispatch={dispatch} />
                 <Button onClick={onClickHandler}> clear</Button>
+                {address}
             </Stack>
 )}
 
@@ -90,6 +96,7 @@ function Streets({setSearchTerm,streets,streetTerm, dispatch}) {
         loading && dispatch(getStreetsTC())
     }, [loading]);
 
+
     return (
 
             <Autocomplete
@@ -99,24 +106,15 @@ function Streets({setSearchTerm,streets,streetTerm, dispatch}) {
             onOpen={() => {setOpen(true)}}
             onClose={() => {setOpen(false)}}
 
-            onChange={(event, value) => value && setSearchTerm(value)}
-
+           onChange={(event, value) => value && setSearchTerm(value)}
 
             options={streets}
             loading={loading}
 
-            getOptionLabel={(option) => {
-              //  console.log(option,'option.name')
-               return  option && option.name
-            }}
-            isOptionEqualToValue={(option, value) => {
-                // console.log(option.name,'option.name')
-                // console.log(value.name,'value.name')
-               return  option.name === value.name
-            }}
+            getOptionLabel={(option) => option && option.name}
+            isOptionEqualToValue={(option, value) => option.name === value.name}
 
-            // value={streetTerm && streetTerm.name}
-                // inputValue={streetTerm && streetTerm.name}
+
             renderOption={(props, option) => {
                 return (
                     <li  {...props} key={option.id}>
@@ -169,14 +167,8 @@ function Houses({setSearchTerm,streetID,houses,houseTerm, dispatch}) {
 
             options={houses}
             loading={loading}
-
-            getOptionLabel={(option) => {
-               // console.log(option,'option.name')
-                return  option && option.name
-            }}
+            getOptionLabel={(option) =>  option && option.name}
             isOptionEqualToValue={(option, value) => option.name === value.name}
-        //    value={houseTerm && houseTerm.name}
-
             renderOption={(props, option) => {
                 return (
                     <li {...props} key={option.id}>
@@ -218,7 +210,6 @@ function HousesFlat({flatTerm, setSearchTerm,houseID,houseFlat, dispatch}) {
 
     function onChangeHandler(event, value) {
          value && setSearchTerm(value)
-
     }
 
     return (
@@ -231,21 +222,11 @@ function HousesFlat({flatTerm, setSearchTerm,houseID,houseFlat, dispatch}) {
 
             onChange={onChangeHandler }
 
-         // onInputChange={onInputChange}
-         // value={flatTerm && flatTerm.name}
-         //  inputValue={value.name}
-           //  searchText={value}
-           //  onUpdateInput={onInputChange}
-
             options={houseFlat}
             loading={loading}
 
-         getOptionLabel={(option) => option && option.name}
-          isOptionEqualToValue={(option, value) => {
-              console.log(option,'option.name')
-              console.log(value,'value')
-            return   option && option === value
-          }}
+            getOptionLabel={(option) => option && option.name}
+             isOptionEqualToValue={(option, value) =>  option && option.name === value.name}
 
             renderOption={(props, option) => {
                 return (
