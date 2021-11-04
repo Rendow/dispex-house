@@ -16,5 +16,14 @@ export const addressAPI = {
         return instance.get(`Request/house_flats/${id}`)
     },
 
+}
+
+export const housingStockAPI = {
+    postClientData(data) {
+        return instance.post(`HousingStock/client`,data)
+    },
+    bindClient(data) {
+        return instance.put(`HousingStock/bind_client`,{data})
+    },
 
 }
