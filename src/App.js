@@ -7,7 +7,7 @@ import ClientsList from "./ui/clients-list/ClientsList";
 function App() {
     return (
         <div className="App">
-            <Stack className={'stackApp'} alignItems={"center"} spacing={21}>
+            <Stack  alignItems={"center"} spacing={21}>
                 <Header/>
                 <Address/>
                 <ClientsList/>

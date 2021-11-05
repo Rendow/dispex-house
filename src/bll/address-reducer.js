@@ -11,7 +11,7 @@ const initialState = {
     houses: [],
     streets: [],
     houseFlat:[],
-    currentAddress:[],
+    currentAddress:null,
     currentAddressID:0,
 }
 

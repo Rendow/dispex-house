@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './Form.module.css';
-import {Alert, Button, CircularProgress, FormControl, Snackbar, TextField} from "@mui/material";
+import {Button, CircularProgress, FormControl, TextField} from "@mui/material";
 import {useFormik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 import {postClientDataTC} from "../../../bll/houses-reducer";
@@ -18,9 +18,7 @@ function Form({handleClose}) {
             phone: '',
         },
         onSubmit: (values,formikHelpers) => {
-
             dispatch(postClientDataTC(values))
-
         },
         validate: (values) => {
             const errors= {}

@@ -25,7 +25,21 @@ const initialState = {
             Phone: "+7 932 324 12",
             Email: "test@mail.com",
             BindId: 3
-        }
+        },
+        {
+            Id: 4,
+            Name: 'Борис',
+            Phone: "+7 932 324 12",
+            Email: "test@mail.com",
+            BindId: 3
+        },
+        {
+            Id: 5,
+            Name: 'Илья',
+            Phone: "+7 922 789 78",
+            Email: "test@mail.com",
+            BindId: 3
+        },
     ],
 }
 
@@ -105,7 +119,7 @@ export const putClientDataTC = () => async (getState) => {
     let address = getState().address.currentAddressID
     let clientID = getState().houses.clientID
     try {
-        await housingStockAPI.bindClient({address, clientID})
+         housingStockAPI.bindClient({address, clientID})
     } catch (e) {
         console.log(e)
     }
