@@ -111,7 +111,7 @@ function Houses({setSearchTerm,streetID,houses, dispatch}) {
 
         <Autocomplete
             id="houses"
-            sx={{width: 300}}
+            sx={{width: 200}}
             open={open}
             onOpen={() => {setOpen(true)}}
             onClose={() => {setOpen(false)}}
@@ -168,7 +168,7 @@ function HousesFlat({ setSearchTerm,houseID,houseFlat, dispatch}) {
     return (
         <Autocomplete
             id="houses_flat"
-            sx={{width: 300}}
+            sx={{width: 200}}
             open={open}
             onOpen={() => {setOpen(true)}}
             onClose={() => {setOpen(false)}}
