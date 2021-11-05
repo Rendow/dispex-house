@@ -1,20 +1,21 @@
-import {addressAPI, housingStockAPI} from "../dal/api";
+import {addressAPI} from "../dal/api";
 
 const SET_HOUSES = 'SET_HOUSES';
 const SET_STREETS = 'SET_STREETS'
 const SET_HOUSE_FLAT = 'SET_HOUSE_FLAT'
 const SET_CURRENT_ADDRESS = 'SET_CURRENT_ADDRESS'
-const POST_CLIENT_DATA = 'POST_CLIENT_DATA'
+const SET_CURRENT_ADDRESS_ID = 'SET_CURRENT_ADDRESS_ID'
+
 
 const initialState = {
     houses: [],
     streets: [],
     houseFlat:[],
     currentAddress:[],
-    clientData:[],
+    currentAddressID:0,
 }
 
-export const appReducer = (state = initialState, action) => {
+export const addressReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case SET_HOUSES:
@@ -37,10 +38,10 @@ export const appReducer = (state = initialState, action) => {
                 ...state,
                 currentAddress: action.payload
             }
-        case POST_CLIENT_DATA:
+        case SET_CURRENT_ADDRESS_ID:
             return {
                 ...state,
-                clientData: action.payload
+                currentAddressID: action.payload
             }
         default:
             return state
@@ -65,9 +66,9 @@ export const setCurrentAddressAC = (address) => ({
     type: SET_CURRENT_ADDRESS,
     payload: address
 })
-export const postClientDataAC = (data) => ({
-    type: POST_CLIENT_DATA,
-    payload: data
+export const setCurrentAddressIDAC = (addressID) => ({
+    type: SET_CURRENT_ADDRESS_ID,
+    payload: addressID
 })
 //thunk
 
@@ -91,14 +92,6 @@ export const getHousesTC = (id) => async (dispatch) => {
 export const getHousesFlatTC = (id) => async (dispatch) => {
     try {
         let response = await addressAPI.getHousesFlats(id)
-        dispatch(setHousesFlatsAC(response.data))
-    } catch (e) {
-        console.log(e)
-    }
-}
-export const postClientDataTC = (data) => async (dispatch) => {
-    try {
-        let response = await housingStockAPI.postClientData(data)
         dispatch(setHousesFlatsAC(response.data))
     } catch (e) {
         console.log(e)

@@ -1,12 +1,14 @@
 import {applyMiddleware, compose} from "redux";
 import thunkMiddleware from "redux-thunk";
-import {appReducer} from "./app-reducer";
+import {addressReducer} from "./address-reducer";
+import {housesReducer} from "./houses-reducer";
 
 const {createStore, combineReducers} = require("redux");
 
 
 const rootReducer = combineReducers({
-    app: appReducer,
+    address: addressReducer,
+    houses:housesReducer,
 })
 
  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

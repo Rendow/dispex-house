@@ -1,23 +1,29 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {Autocomplete, Button, CircularProgress, Stack, TextField} from "@mui/material";
-import {getHousesFlatTC, getHousesTC, getStreetsTC, setCurrentAddressAC} from "../../bll/app-reducer";
+import {
+    getHousesFlatTC,
+    getHousesTC,
+    getStreetsTC,
+    setCurrentAddressAC,
+    setCurrentAddressIDAC
+} from "../../bll/address-reducer";
 
 export function Address (){
 
-    const  streets = useSelector((state) => state.app.streets)
-    const  houses = useSelector((state) => state.app.houses)
-    const  houseFlat = useSelector((state) => state.app.houseFlat)
+    const  streets = useSelector((state) => state.address.streets)
+    const  houses = useSelector((state) => state.address.houses)
+    const  houseFlat = useSelector((state) => state.address.houseFlat)
     const dispatch = useDispatch()
 
     const [streetTerm, setStreetTerm] = useState(null)
     const [houseTerm, setHouseTerm] = useState(null)
     const [flatTerm, setFlatTerm] = useState(null)
 
-  //  const [address, setAddress] = useState(null)
 
     const onClickHandler = () => {
       dispatch(setCurrentAddressAC([streetTerm.nameWithPrefix,houseTerm.name, flatTerm.name]))
+      dispatch(setCurrentAddressIDAC( flatTerm.id))
     }
 
     return (
@@ -28,7 +34,7 @@ export function Address (){
                      houses={houses}/>
             <HousesFlat houseID={houseTerm} setSearchTerm={setFlatTerm}  houseFlat={houseFlat}
                         dispatch={dispatch} />
-            <Button onClick={onClickHandler}> SET </Button>
+            <Button onClick={onClickHandler}> Выбрать Адрес</Button>
 
         </Stack>
     )}
