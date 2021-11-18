@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/the-address-book/static/css/main.6e91ff32.chunk.css",
-    "main.js": "/the-address-book/static/js/main.a99fa8a6.chunk.js",
-    "main.js.map": "/the-address-book/static/js/main.a99fa8a6.chunk.js.map",
+    "main.js": "/the-address-book/static/js/main.0cf46fbc.chunk.js",
+    "main.js.map": "/the-address-book/static/js/main.0cf46fbc.chunk.js.map",
     "runtime-main.js": "/the-address-book/static/js/runtime-main.9432ac8c.js",
     "runtime-main.js.map": "/the-address-book/static/js/runtime-main.9432ac8c.js.map",
-    "static/js/2.88bcf29c.chunk.js": "/the-address-book/static/js/2.88bcf29c.chunk.js",
-    "static/js/2.88bcf29c.chunk.js.map": "/the-address-book/static/js/2.88bcf29c.chunk.js.map",
+    "static/js/2.fd3d453b.chunk.js": "/the-address-book/static/js/2.fd3d453b.chunk.js",
+    "static/js/2.fd3d453b.chunk.js.map": "/the-address-book/static/js/2.fd3d453b.chunk.js.map",
     "index.html": "/the-address-book/index.html",
     "static/css/main.6e91ff32.chunk.css.map": "/the-address-book/static/css/main.6e91ff32.chunk.css.map",
-    "static/js/2.88bcf29c.chunk.js.LICENSE.txt": "/the-address-book/static/js/2.88bcf29c.chunk.js.LICENSE.txt"
+    "static/js/2.fd3d453b.chunk.js.LICENSE.txt": "/the-address-book/static/js/2.fd3d453b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.9432ac8c.js",
-    "static/js/2.88bcf29c.chunk.js",
+    "static/js/2.fd3d453b.chunk.js",
     "static/css/main.6e91ff32.chunk.css",
-    "static/js/main.a99fa8a6.chunk.js"
+    "static/js/main.0cf46fbc.chunk.js"
   ]
 }
