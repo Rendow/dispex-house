@@ -23,7 +23,7 @@ export function BasicModal({currentAddress, title,disabled = false,isOpen=false,
         p: 4,
     };
     const [open, setOpen] = useState(isOpen);
-    console.log(open,'modal')
+
     const handleOpen = () => setOpen(true);
     const handleClose = () => {
         setOpen(false)

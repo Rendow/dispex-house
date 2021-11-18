@@ -8,6 +8,7 @@ import {
     setCurrentAddressAC,
     setCurrentAddressIDAC
 } from "../../bll/address-reducer";
+import {getFlatClientsTC} from "../../bll/houses-reducer";
 
 export function Address (){
 
@@ -24,17 +25,18 @@ export function Address (){
     const onClickHandler = () => {
       dispatch(setCurrentAddressAC([streetTerm.nameWithPrefix,houseTerm.name, flatTerm.name]))
       dispatch(setCurrentAddressIDAC( flatTerm.id))
+      dispatch(getFlatClientsTC())
     }
 
+    const isDisable = flatTerm === null
     return (
-
         <Stack direction="row" spacing={2}>
             <Streets  setSearchTerm={setStreetTerm} dispatch={dispatch} streets={streets}/>
             <Houses  streetID={streetTerm} setSearchTerm={setHouseTerm} dispatch={dispatch}
                      houses={houses}/>
             <HousesFlat houseID={houseTerm} setSearchTerm={setFlatTerm}  houseFlat={houseFlat}
                         dispatch={dispatch} />
-            <Button onClick={onClickHandler}> Выбрать Адрес</Button>
+            <Button disabled={isDisable} onClick={onClickHandler}> Выбрать Адрес</Button>
 
         </Stack>
     )}
@@ -164,6 +166,7 @@ function HousesFlat({ setSearchTerm,houseID,houseFlat, dispatch}) {
     function onChangeHandler(event, value) {
         value && setSearchTerm(value)
     }
+
 
     return (
         <Autocomplete

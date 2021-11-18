@@ -3,7 +3,7 @@ import s from './Form.module.css';
 import {Button, CircularProgress, FormControl, TextField} from "@mui/material";
 import {useFormik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
-import {getFlatClientsTC, postClientDataTC} from "../../../bll/houses-reducer";
+import {postClientDataTC} from "../../../bll/houses-reducer";
 
 
 function Form({handleClose,formButtonTitle,id,name, phone,email,bindId}) {

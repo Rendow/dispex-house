@@ -4,7 +4,6 @@ import {Button, IconButton, Paper, Stack} from "@mui/material";
 import React, {useState} from "react";
 import {SnackBar} from "../common/SnackBar";
 import {deleteFlatClientsTC, getFlatClientsTC} from "../../bll/houses-reducer";
-import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import s from './ClientsList.module.css';
 import {Delete} from "@mui/icons-material";
@@ -42,14 +41,14 @@ function ClientsList (){
                 </Stack>
         </Stack>
 
-            <Stack direction="row"  spacing={2}>
+            <Paper style={{display: flatClients ? 'flex' : 'none',padding: '23px 0',}}   elevation={5}>
                 <div className={s.clientsList}>
                     { flatClients && flatClients.map(el => {
                     return  <Client currentAddress={mappedAddress} key={el.id} id={el.id} name={el.name}  email={el.email} phone={el.phone} bindId={el.bindId}/>
                 })}
                 </div>
 
-            </Stack>
+            </Paper>
         </Stack>
     )
 }
@@ -66,7 +65,6 @@ function Client({name, phone,email,id,currentAddress, bindId}) {
     }
     const editClientData = () => {
         setIsOpen(!open)
-        console.log(open)
     }
     return (
             <Paper style={{margin: '10px 0 0 20px'}} elevation={5}>

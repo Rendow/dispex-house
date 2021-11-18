@@ -9,7 +9,7 @@ function App() {
         <div className="App" >
             <Stack  alignItems={"center"} spacing={21}>
                 <Header/>
-                <Stack style={{width:'900px', margin: '45px'}} alignItems={"center"}  spacing={15}>
+                <Stack style={{width:'900px', margin: '45px'}} alignItems={"flex-end"}  spacing={5}>
                 <Address/>
                 <ClientsList/>
                 </Stack>
