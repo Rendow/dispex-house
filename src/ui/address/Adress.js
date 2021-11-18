@@ -20,6 +20,7 @@ export function Address (){
     const [streetTerm, setStreetTerm] = useState(null)
     const [houseTerm, setHouseTerm] = useState(null)
     const [flatTerm, setFlatTerm] = useState(null)
+    const [disableBtn, setDisableBtn] = useState(true)
 
 
     const onClickHandler = () => {
@@ -28,26 +29,34 @@ export function Address (){
       dispatch(getFlatClientsTC())
     }
 
-    const isDisable = flatTerm === null
     return (
         <Stack direction="row" spacing={2}>
-            <Streets  setSearchTerm={setStreetTerm} dispatch={dispatch} streets={streets}/>
-            <Houses  streetID={streetTerm} setSearchTerm={setHouseTerm} dispatch={dispatch}
+            <Streets  setSearchTerm={setStreetTerm}
+                      setDisableBtn={setDisableBtn}
+                      dispatch={dispatch} streets={streets}/>
+            <Houses  streetID={streetTerm}
+                     setSearchTerm={setHouseTerm}
+                     dispatch={dispatch}
+                     setDisableBtn={setDisableBtn}
                      houses={houses}/>
-            <HousesFlat houseID={houseTerm} setSearchTerm={setFlatTerm}  houseFlat={houseFlat}
+            <HousesFlat houseID={houseTerm}
+                        setSearchTerm={setFlatTerm}
+                        setDisableBtn={setDisableBtn}
+                        houseFlat={houseFlat}
                         dispatch={dispatch} />
-            <Button disabled={isDisable} onClick={onClickHandler}> Выбрать Адрес</Button>
+            <Button disabled={disableBtn} onClick={onClickHandler}> Выбрать Адрес</Button>
 
         </Stack>
     )}
 
-function Streets({setSearchTerm,streets, dispatch}) {
+function Streets({setSearchTerm,streets, dispatch,setDisableBtn}) {
 
     const [open, setOpen] = useState(false);
     const loading =  open && streets.length === 0;
 
     useEffect(() => {
         loading && dispatch(getStreetsTC())
+        loading && setDisableBtn(true)
     }, [loading]);
 
     let filteredOptions = streets.filter(s => s.cityId  === 1)
@@ -98,7 +107,7 @@ function Streets({setSearchTerm,streets, dispatch}) {
     );
 }
 
-function Houses({setSearchTerm,streetID,houses, dispatch}) {
+function Houses({setSearchTerm,streetID,houses, dispatch,setDisableBtn}) {
 
     const [open, setOpen] = useState(false);
 
@@ -106,6 +115,7 @@ function Houses({setSearchTerm,streetID,houses, dispatch}) {
 
     useEffect(() => {
         streetID &&  dispatch(getHousesTC(streetID.id))
+        streetID && setDisableBtn(true)
     }, [streetID]);
 
 
@@ -152,7 +162,7 @@ function Houses({setSearchTerm,streetID,houses, dispatch}) {
     );
 }
 
-function HousesFlat({ setSearchTerm,houseID,houseFlat, dispatch}) {
+function HousesFlat({ setSearchTerm,houseID,houseFlat, dispatch,setDisableBtn}) {
 
     const [open, setOpen] = useState(false);
 
@@ -160,6 +170,7 @@ function HousesFlat({ setSearchTerm,houseID,houseFlat, dispatch}) {
 
     useEffect(() => {
         houseID &&  dispatch(getHousesFlatTC(houseID.id))
+        houseID && setDisableBtn(false)
     }, [houseID]);
 
 

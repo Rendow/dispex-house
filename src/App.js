@@ -7,8 +7,13 @@ import ClientsList from "./ui/clients-list/ClientsList";
 function App() {
     return (
         <div className="App" >
-            <Stack  alignItems={"center"} spacing={21}>
+            <Stack  alignItems={"center"}>
                 <Header/>
+                <span style={{
+                    fontSize: '12px',
+                      opacity: '0.5',
+                      marginTop:'20px',
+                }}> Функционал работает с Федюнинского, ул , 30 , Подъезд 1</span>
                 <Stack style={{width:'900px', margin: '45px'}} alignItems={"flex-end"}  spacing={5}>
                 <Address/>
                 <ClientsList/>
