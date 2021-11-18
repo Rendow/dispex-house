@@ -22,11 +22,18 @@ export const housingStockAPI = {
     getFlatClients(id) {
         return instance.get(`HousingStock/clients?addressId=${id}`)
     },
-    postClientData(data) {
-        return instance.post(`HousingStock/client`, {...data, Id:0, BindId:0})
+    postClientData_(clientId, Name=' ', Phone, Email=' ', addressId) {
+        return instance.post(`HousingStock/client`, {
+            Id: clientId,
+            Name,
+            Phone,
+            Email,
+            BindId: addressId,
+        })
     },
-    bindClient(data) {
-        return instance.put(`HousingStock/bind_client`, {AddressId: data.address, ClientId: data.clientID})
+    bindClient({AddressId, ClientId}) {
+        console.log(AddressId,ClientId)
+        return instance.put(`HousingStock/bind_client`, {AddressId, ClientId})
     },
     deleteClient(id) {
         return instance.delete(`HousingStock/bind_client/${id}`)

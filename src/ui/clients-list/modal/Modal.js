@@ -1,10 +1,16 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Box, Button, Modal, Stack, Typography} from "@mui/material";
 import Form from "../form/Form";
-import {deleteFlatClientsTC, getFlatClientsTC, postClientDataTC} from "../../../bll/houses-reducer";
+import {deleteFlatClientsTC} from "../../../bll/houses-reducer";
 import {useDispatch} from "react-redux";
 
-export function BasicModal({currentAddress, title,disabled = false}) {
+export function BasicModal({currentAddress, title,disabled = false,isOpen=false,
+                               display,setIsOpen,id,name, phone,email,bindId,formButtonTitle,displayDelButton = 'block'
+}) {
+
+    useEffect(() => {
+        setOpen(isOpen)
+    }, [isOpen])
 
     const style = {
         position: 'absolute',
@@ -16,20 +22,22 @@ export function BasicModal({currentAddress, title,disabled = false}) {
         boxShadow: 24,
         p: 4,
     };
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(isOpen);
+    console.log(open,'modal')
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const handleClose = () => {
+        setOpen(false)
+        if(setIsOpen) setIsOpen(false);
+    };
     const dispatch = useDispatch()
 
-    const postClientData = () => {
-        dispatch(postClientDataTC())
-    }
     const deleteData = () => {
-        dispatch(deleteFlatClientsTC())
+        dispatch(deleteFlatClientsTC(id))
+        handleClose()
     }
     return (
         <div>
-            <Button disabled={disabled}  variant={"contained"}  onClick={handleOpen}>{title}</Button>
+            <Button style={{display:display}} disabled={disabled}  variant={"contained"}  onClick={handleOpen}>{title}</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -42,20 +50,21 @@ export function BasicModal({currentAddress, title,disabled = false}) {
                         Добавить жильца
                     </Typography>
                         <div>
-                            <Button
-                            onClick={deleteData}
-                        >Удалить</Button>
-                            <Button
-                                disabled={true}
-                                onClick={postClientData}
-                            >Редактировать</Button>
+                            <Button style={{display:displayDelButton}} onClick={deleteData}>Удалить</Button>
                         </div>
                     </Stack>
 
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         {currentAddress}
                     </Typography>
-                    <Form  handleClose={handleClose}/>
+                    <Form
+                        bindId={bindId}
+                        name={name}
+                        email={email}
+                        phone={phone}
+                        id={id}
+                        formButtonTitle={formButtonTitle}
+                        handleClose={handleClose}/>
 
                 </Box>
             </Modal>

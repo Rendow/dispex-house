@@ -13,32 +13,32 @@ const initialState = {
     status:'idle',
     flatClients:[
         {
-            Id: 0,
-            Name: 'Иван',
-            Phone: "+7 932 324 12",
-            Email: "test@mail.com",
-            BindId: 0
+            id: 0,
+            name: 'Иван',
+            phone: "+7 932 324 12",
+            email: "test@mail.com",
+            bindId: 0
         },
         {
-            Id: 2,
-            Name: 'Борис',
-            Phone: "+7 932 324 12",
-            Email: "test@mail.com",
-            BindId: 3
+            id: 2,
+            name: 'Борис',
+            phone: "+7 932 324 12",
+            email: "test@mail.com",
+            bindId: 3
         },
         {
-            Id: 4,
-            Name: 'Борис',
-            Phone: "+7 932 324 12",
-            Email: "test@mail.com",
-            BindId: 3
+            id: 4,
+            name: 'Борис',
+            phone: "+7 932 324 12",
+            email: "test@mail.com",
+            bindId: 3
         },
         {
-            Id: 5,
-            Name: 'Илья',
-            Phone: "+7 922 789 78",
-            Email: "test@mail.com",
-            BindId: 3
+            id: 5,
+            name: 'Илья',
+            phone: "+7 922 789 78",
+            email: "test@mail.com",
+            bindId: 3
         },
     ],
 }
@@ -67,6 +67,11 @@ export const housesReducer = (state = initialState, action) => {
                 ...state,
                 flatClients: action.payload
             }
+        case DELETE_FLAT_CLIENTS:
+            return {
+                ...state,
+                flatClients: state.flatClients.filter(client => client.id !== action.payload)
+            }
 
         default:
             return state
@@ -90,23 +95,25 @@ export const setFlatClientsAC = (data) => ({
     type: SET_FLAT_CLIENTS,
     payload: data
 })
-export const deleteFlatClientsAC = () => ({
-    type: DELETE_FLAT_CLIENTS
+export const deleteFlatClientsAC = (id) => ({
+    type: DELETE_FLAT_CLIENTS,
+    payload: id
 })
 
 //thunk
 export const postClientDataTC = (data) => async (dispatch, getState) => {
-    let address = getState().address.currentAddressID
 
     dispatch(setLoadingAC(true))
     dispatch(setStatusAC('loading'))
     try {
-        let response = await housingStockAPI.postClientData(data)
+        let response = await housingStockAPI.postClientData_(data.id,data.name,data.phone, data.email,data.address)
         if(response.data.result === 'Ok'){
-            dispatch(setClientIDAC(response.data.id))
-            housingStockAPI.bindClient({address, clientID: response.data.id})
+            dispatch(setClientIDAC(data.id))
+            await housingStockAPI.bindClient({AddressId: data.address, ClientId: data.id})
+            dispatch(getFlatClientsTC())
         }
         dispatch(setStatusAC('success'))
+
     } catch (e) {
         console.log(e)
     }
@@ -116,10 +123,10 @@ export const postClientDataTC = (data) => async (dispatch, getState) => {
 }
 
 export const putClientDataTC = () => async (getState) => {
-    let address = getState().address.currentAddressID
-    let clientID = getState().houses.clientID
+    let AddressId = getState().address.currentAddressID
+    let ClientId = getState().houses.clientID
     try {
-         housingStockAPI.bindClient({address, clientID})
+         housingStockAPI.bindClient({AddressId,ClientId})
     } catch (e) {
         console.log(e)
     }
@@ -133,11 +140,11 @@ export const getFlatClientsTC = () => async (dispatch,getState) => {
         console.log(e)
     }
 }
-export const deleteFlatClientsTC = () => async (dispatch,getState) => {
-    let clientID = getState().houses.clientID
+export const deleteFlatClientsTC = (id) => async (dispatch) => {
+
     try {
-         await housingStockAPI.deleteClient(clientID)
-        dispatch(deleteFlatClientsAC())
+         await housingStockAPI.deleteClient(id)
+        dispatch(deleteFlatClientsAC(id))
     } catch (e) {
         console.log(e)
     }

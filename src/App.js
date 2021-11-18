@@ -6,10 +6,10 @@ import ClientsList from "./ui/clients-list/ClientsList";
 
 function App() {
     return (
-        <div className="App">
+        <div className="App" >
             <Stack  alignItems={"center"} spacing={21}>
                 <Header/>
-                <Stack style={{width:'1000px'}} alignItems={"center"}   spacing={15}>
+                <Stack style={{width:'900px', margin: '45px'}} alignItems={"center"}  spacing={15}>
                 <Address/>
                 <ClientsList/>
                 </Stack>

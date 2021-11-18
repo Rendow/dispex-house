@@ -3,22 +3,25 @@ import s from './Form.module.css';
 import {Button, CircularProgress, FormControl, TextField} from "@mui/material";
 import {useFormik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
-import {postClientDataTC} from "../../../bll/houses-reducer";
+import {getFlatClientsTC, postClientDataTC} from "../../../bll/houses-reducer";
 
 
-function Form({handleClose}) {
+function Form({handleClose,formButtonTitle,id,name, phone,email,bindId}) {
     const dispatch = useDispatch()
     const  isLoading = useSelector((state) => state.houses.isLoading)
+    const  address = useSelector((state) => state.address.currentAddressID)
 
+    const generateId = (min = 1000, max = 9999) => {
+   return Math.floor(Math.random() * (max - min) + min); }
 
     const formik = useFormik({
         initialValues: {
-            email: '',
-            name: '',
-            phone: '',
+            email: email ? email : '',
+            name: name ? name : '',
+            phone: phone ? phone : '',
         },
         onSubmit: (values,formikHelpers) => {
-            dispatch(postClientDataTC(values))
+            dispatch(postClientDataTC({id: id ? id : generateId(),name:values.name,phone:values.phone,email:values.email,address: bindId ? bindId : address}))
         },
         validate: (values) => {
             const errors= {}
@@ -48,7 +51,7 @@ function Form({handleClose}) {
                 <div style={{display:'flex', justifyContent:'flex-end', marginRop:'40px'}}>
 
                     <Button style={{marginRight:'5px'}} onClick={handleClose}> Отмена </Button>
-                    <Button variant={"contained"} disabled={isLoading} type={'submit'} > Добавить </Button>
+                    <Button variant={"contained"} disabled={isLoading} type={'submit'} > {formButtonTitle} </Button>
                     {isLoading ? <CircularProgress style={{margin:'5px 0 0 5px'}} color="inherit" size={20}/> : null}
                 </div>
             </FormControl>

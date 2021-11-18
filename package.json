@@ -1,6 +1,6 @@
 {
-  "name": "house-app",
-  "homepage": "https://rendow.github.io/house-app/",
+  "name": "the-address-book",
+  "homepage": "https://rendow.github.io/the-address-book/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

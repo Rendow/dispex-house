@@ -7,7 +7,7 @@ export function Header(){
                 <IconButton edge="start" color="inherit" aria-label="menu" >
                 </IconButton>
                 <Typography variant="h6" color="inherit">
-                    House
+                    The address book
                 </Typography>
             </Toolbar>
         </AppBar>)
